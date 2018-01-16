@@ -1,0 +1,3 @@
+rootProject.name = 'reactNativeDvaElements'
+
+include ':app'
