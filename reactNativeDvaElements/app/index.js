@@ -27,9 +27,18 @@
  *     Initial: 2018/01/16        Feng Yifei
  */
 
-import React from 'react';  // eslint-disable-line
-import { AppRegistry } from 'react-native';
+import React from 'react';
 
-import application from './app/index';
+import dva from './patch/dva';
+import Router from './router';
+import { Models } from './models';
 
-AppRegistry.registerComponent('reactNativeDvaElements', () => application);
+const app = dva({
+  initialState: {},
+  models: Models,
+  onError() {},
+});
+
+const application = app.start(<Router />);
+
+export default application;

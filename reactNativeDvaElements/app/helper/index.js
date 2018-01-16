@@ -27,9 +27,10 @@
  *     Initial: 2018/01/16        Feng Yifei
  */
 
-import React from 'react';  // eslint-disable-line
-import { AppRegistry } from 'react-native';
+export { NavigationActions } from 'react-navigation';
 
-import application from './app/index';
+export const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-AppRegistry.registerComponent('reactNativeDvaElements', () => application);
+export const runOnMainThread = (func) => { setTimeout(func, 0); };
+
+export const createAction = type => payload => ({ type, payload });

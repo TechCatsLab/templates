@@ -27,9 +27,10 @@
  *     Initial: 2018/01/16        Feng Yifei
  */
 
-import React from 'react';  // eslint-disable-line
-import { AppRegistry } from 'react-native';
+import Main from './pages/Main';
 
-import application from './app/index';
+const Navigations = {
+  Main: { screen: Main },
+};
 
-AppRegistry.registerComponent('reactNativeDvaElements', () => application);
+export default Navigations;

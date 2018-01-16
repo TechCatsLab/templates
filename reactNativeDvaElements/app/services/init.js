@@ -27,9 +27,7 @@
  *     Initial: 2018/01/16        Feng Yifei
  */
 
-import React from 'react';  // eslint-disable-line
-import { AppRegistry } from 'react-native';
-
-import application from './app/index';
-
-AppRegistry.registerComponent('reactNativeDvaElements', () => application);
+export const init = async () => {
+  console.log('init service');
+  await true;
+};
