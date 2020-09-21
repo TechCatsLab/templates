@@ -1,3 +1,4 @@
+
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,32 +7,81 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
-  Text,
   View,
+  Image,
+  Text,
 } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
+import { TabNavigator } from "react-navigation";
+import Home from "./Home.js";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const list = [
+  {
+    title: 'Appointments',
+    icon: 'av-timer',
+  },
+  {
+    title: 'Trips',
+    icon: 'flight-takeoff',
+  },
+  {
+    title: 'Password',
+    icon: 'av-timer',
+  },
+  {
+    title: 'Updates',
+    icon: 'flight-takeoff',
+  },
+];
+class Main extends Component<{}> {
+  static navigationOptions = {
+    tabBarLabel: '我的',
+    tabBarIcon: ({ focused, tintcolor }) => (
+      <Image
+        source={focused ? require('../assets/images/Main(1).png') : require('../assets/images/Main.png')}
+        style={{ width: 26, height: 26, tintColor: tintcolor }}
+      />
+    ),
+  }
 
-export default class Main extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 100,
+          }}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Avatar
+              onPress={() => console.log("Works!")}
+              containerStyle={styles.avatar}
+              large
+              rounded
+              source={{
+                uri:
+                  'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+              }}
+            />
+          </View>
+          <View style={{ flex: 2, justifyContent: 'center', alignItems: 'flex-start' }}>
+            <Text style={styles.text}>Oiar</Text>
+            <Text style={styles.subtitle}>轻轻地我走了，正如我轻轻地来</Text>
+          </View>
+        </View>
+        {
+          list.map((item, i) => (
+            <ListItem
+              divider={{ tintColor: '#fff' }}
+              key={i.toString()}
+              title={item.title}
+              leftIcon={{ name: item.icon }}
+            />
+          ))
+        }
       </View>
     );
   }
@@ -40,18 +90,53 @@ export default class Main extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+  },
+  avatar: {
+    // marginTop: 10,
+    // marginBottom: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
+  name: {
+    // marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    // textAlign: 'center',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  subtitle: {
+    marginTop: 10,
+    fontSize: 12,
+    color: '#8a8a8a',
   },
 });
+
+const BottomNavigation = TabNavigator(
+  {
+    首页: { screen: Home },
+    我的: { screen: Main },
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#f40bf0',
+      inactiveTintColor: '#000',
+      showIcon: true,
+      upperCaseLabel: false,
+      pressColor: '#823453',
+      pressOpacity: 0.8,
+      style: {
+        // backgroundColor: '#F5FCFF',
+        paddingBottom: 3,
+        borderTopWidth: 0.5,
+        borderTopColor: '#ccc',
+      },
+      indicatorStyle: { height: 0 },
+    },
+    tabBarPosition: 'bottom',
+  },
+);
+
+export default BottomNavigation;
